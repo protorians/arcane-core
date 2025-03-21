@@ -7,8 +7,7 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "npm run build:cjs",
-    "build:cjs": "tsc && ts-add-js-extension --dir=build",
+    "build": "tsc && ts-add-js-extension --dir=build",
     "fix:cjs": "ts-add-js-extension --dir=build"
   },
   "exports": {
