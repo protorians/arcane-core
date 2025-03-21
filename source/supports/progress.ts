@@ -1,10 +1,10 @@
 import {SingleBar} from "cli-progress";
 import * as cliProgress from "cli-progress";
 import * as colors from "ansi-colors";
-import {ProgressOptions} from "../types";
-import * as ora from "ora";
+import {ProgressOptions} from "../types/index.js";
+import ora from "ora";
 
-export namespace ThreadProgress {
+export namespace ArcaneProgress {
 
     export function create(options: ProgressOptions): SingleBar {
         return new cliProgress.SingleBar({

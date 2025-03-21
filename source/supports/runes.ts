@@ -1,6 +1,6 @@
 import {resolve, relative, dirname} from "node:path";
 import * as fs from "node:fs";
-import {Terminal} from "./terminal";
+import {Terminal} from "./terminal.js";
 import {
     IRuneConfig,
     IRuneDumper,
@@ -9,14 +9,14 @@ import {
     IRunePayloads,
     IRuneScheme,
     IRuneDumperSignalMap
-} from "../types";
-import {ISignalStack, Signal} from "@protorians/core";
+} from "../types/index.js";
+import {type ISignalStack, Signal} from "@protorians/core";
 import {readFileSync} from "node:fs";
 import {Command} from "commander";
-import {ThreadEnum} from "./enums";
+import {ArcaneEnum} from "./enums.js";
 
 
-export namespace ThreadRunes {
+export namespace ArcaneRunes {
 
     export class Dumper implements IRuneDumper {
 
@@ -39,7 +39,7 @@ export namespace ThreadRunes {
             const data = {name, file};
 
             let config: IRuneConfig = (typeof this._entries[name] !== "object")
-                ? JSON.parse(readFileSync(`${filepath}/${ThreadEnum.Rune.CONFIG_FILE}`).toString())
+                ? JSON.parse(readFileSync(`${filepath}/${ArcaneEnum.Rune.CONFIG_FILE}`).toString())
                 : this._entries[name]
 
             config.files = config.files || [];
@@ -141,8 +141,8 @@ export namespace ThreadRunes {
             directory: binDir,
             output: dumpFile,
             allow: [
-                ThreadEnum.Rune.CONFIG_FILE,
-                ThreadEnum.Rune.MAIN_FILE,
+                ArcaneEnum.Rune.CONFIG_FILE,
+                ArcaneEnum.Rune.MAIN_FILE,
             ],
             silent,
         })
@@ -169,8 +169,8 @@ export namespace ThreadRunes {
 
             if (!files) continue;
             if (!(Array.isArray(files) &&
-                files.includes(ThreadEnum.Rune.CONFIG_FILE) &&
-                files.includes(ThreadEnum.Rune.MAIN_FILE)
+                files.includes(ArcaneEnum.Rune.CONFIG_FILE) &&
+                files.includes(ArcaneEnum.Rune.MAIN_FILE)
             )) continue;
             if (typeof config !== 'object') continue;
 

@@ -66,5 +66,4 @@ export interface IRuneDumper {
     start(): this;
 
     save(): boolean;
-
 }

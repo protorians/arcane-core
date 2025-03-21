@@ -1,17 +1,17 @@
 import * as fs from "fs";
 import * as path from "path";
 import {SingleBar} from "cli-progress";
-import {ThreadString} from "./string";
-import {Terminal} from "./terminal";
-import {IDownloader, IDownloaderConfig} from "../types/downloader";
-import {DownloaderException} from "../exception";
-import {ThreadProgress} from "./progress";
-import {ThreadDirectory, ThreadFile} from "./fs.manager";
+import {ArcaneString} from "./string.js";
+import {Terminal} from "./terminal.js";
+import {IDownloader, IDownloaderConfig} from "../types/index.js";
+import {DownloaderException} from "../exception.js";
+import {ArcaneProgress} from "./progress.js";
+import {ArcaneDirectory, ThreadFile} from "./fs.manager.js";
 import {existsSync} from "node:fs";
 import {basename} from "path";
 import {Ora} from "ora";
 
-export namespace ThreadDownloader {
+export namespace ArcaneDownloader {
 
     export class Create implements IDownloader {
         protected _config: Partial<IDownloaderConfig> = {info: true};
@@ -113,7 +113,7 @@ export namespace ThreadDownloader {
             try {
 
                 if (!this._config.silent) {
-                    spinner = await ThreadProgress.createSpinner(`Fetch ${this._config.name}...`);
+                    spinner = await ArcaneProgress.createSpinner(`Fetch ${this._config.name}...`);
                     spinner.start()
                     spinner.color = 'cyan'
                 }
@@ -144,8 +144,8 @@ export namespace ThreadDownloader {
                     if (match) filename = match[1];
                 }
 
-                this._slug = ThreadString.nameable(
-                    ThreadString.nameFromUrl(filename) ||
+                this._slug = ArcaneString.nameable(
+                    ArcaneString.nameFromUrl(filename) ||
                     `${this._config.name}${this._config.extension?.trim().length ? this._config.extension : ''}`
                 );
                 this._downloaded = (this._config.cacheable && this._config.caches)
@@ -156,7 +156,7 @@ export namespace ThreadDownloader {
                 if (!size && response.status != 200) throw new DownloaderException("Not found");
 
                 progress = (size && this._config.silent === false)
-                    ? ThreadProgress.create({
+                    ? ArcaneProgress.create({
                         name: this._slug || this._config.name,
                         cleanable: true,
                     })
@@ -242,7 +242,7 @@ export namespace ThreadDownloader {
                 if (!existsSync(output)) {
                     throw new DownloaderException("Output does not exists");
                 }
-                this._copied = ThreadDirectory.copy(this._config.name, output, directory)
+                this._copied = ArcaneDirectory.copy(this._config.name, output, directory)
 
                 if (!this._config.silent) Terminal.Display.info("TASK", `${this._config.name} copied!`);
                 return this;
@@ -273,7 +273,7 @@ export namespace ThreadDownloader {
         ) {
             this.length = entries.length;
 
-            this.progress = ThreadProgress.create({
+            this.progress = ArcaneProgress.create({
                 name: 'Downloading',
             })
             this.progress?.start(this.length, 0);

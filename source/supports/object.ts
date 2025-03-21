@@ -1,4 +1,4 @@
-export namespace ThreadObject {
+export namespace ArcaneObject {
     export function toNested<T>(obj: T, nestedPath: string): any {
         return nestedPath.split('.')
             .reduce((acc, key) => acc && acc[key], obj);

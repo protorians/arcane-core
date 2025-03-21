@@ -1,4 +1,4 @@
-import {DownloaderException} from "../exception";
+import {DownloaderException} from "../exception.js";
 
 export type IDownloaderConfig = {
     name: string;

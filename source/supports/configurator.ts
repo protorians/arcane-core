@@ -1,10 +1,11 @@
 import {existsSync, readFileSync, writeFileSync} from "node:fs";
-import {ThreadObject} from "./object";
+import { IConfigLoader } from "../types/index.js";
+import {ArcaneObject} from "./object.js";
 
 
-export namespace ThreadConfig {
+export namespace ArcaneConfig {
 
-    export class Loader<T> {
+    export class Loader<T> implements IConfigLoader<T>{
 
         protected _schematic: T | undefined;
 
@@ -27,7 +28,7 @@ export namespace ThreadConfig {
         }
 
         value<K extends keyof T>(key: K): T[K] | undefined {
-            return this._schematic ? (ThreadObject.toNested(this._schematic, key as string)) : undefined
+            return this._schematic ? (ArcaneObject.toNested(this._schematic, key as string)) : undefined
         }
 
         update<K extends keyof T>(key: K, value: T[K]): this {
@@ -47,7 +48,6 @@ export namespace ThreadConfig {
             }
             return this;
         }
-
 
         save(): boolean {
             try {

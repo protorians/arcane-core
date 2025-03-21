@@ -1,7 +1,7 @@
 import * as path from "node:path";
 import * as url from "url";
 
-export namespace ThreadString {
+export namespace ArcaneString {
 
     export function nameable(name: string): string {
         return (name.includes('/') || name.includes('\\'))
@@ -23,30 +23,18 @@ export namespace ThreadString {
             .toLowerCase();
     }
 
-    /**
-     *
-     */
     export function trimSpace(data: string): string {
         return data.replace(/ /g, '')
     }
 
-    /**
-     *
-     */
     export function ucFirst(data: string, strict: boolean = false): string {
         return data.charAt(0).toUpperCase() + (strict ? data.slice(1).toLowerCase() : data.slice(1));
     }
 
-    /**
-     *
-     */
     export function ucWords(data: string, strict: boolean = false): string {
         return data.split(' ').map(frag => frag.charAt(0).toUpperCase() + (strict ? frag.slice(1).toLowerCase() : frag.slice(1))).join(' ');
     }
 
-    /**
-     *
-     */
     export function random(length: number = 10): string {
         const provider: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const out: string[] = [];
@@ -58,10 +46,6 @@ export namespace ThreadString {
         return out.join('');
     }
 
-
-    /**
-     *
-     */
     export function logTime(date: Date | undefined = undefined): string {
         return (date || (new Date())).toLocaleTimeString('en-US', {
             hour: 'numeric',
@@ -71,9 +55,6 @@ export namespace ThreadString {
         });
     }
 
-    /**
-     *
-     */
     export function logDateTime(date: Date | undefined = undefined): string {
         return (date || (new Date())).toLocaleTimeString('en-US', {
             year: 'numeric',

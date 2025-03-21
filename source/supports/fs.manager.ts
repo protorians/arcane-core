@@ -1,23 +1,23 @@
 import {statSync, mkdirSync, existsSync, readdirSync, copyFileSync} from "node:fs";
-import {ThreadProgress} from "./progress";
+import {ArcaneProgress} from "./progress.js";
 import * as path from "node:path";
 import * as AdmZip from "adm-zip";
 import {SingleBar} from "cli-progress";
 import * as fs from "node:fs";
-import * as extractZip from "extract-zip";
-import {ExtractorException} from "../exception";
+import extractZip from "extract-zip";
+import {ExtractorException} from "../exception.js";
 
 
-export namespace ThreadDirectory {
+export namespace ArcaneDirectory {
 
-    export function initialize(directory: string): string | null {
+    export function initialize(directory: string): string {
         try {
             const exists = existsSync(directory);
             if (!exists) mkdirSync(directory, {recursive: true});
             if (exists && !statSync(directory).isDirectory()) mkdirSync(directory, {recursive: true});
             return directory;
         } catch (e) {
-            return null;
+            return directory;
         }
     }
 
@@ -25,7 +25,7 @@ export namespace ThreadDirectory {
         let copied: string[] = [];
         const entries = readdirSync(from);
         const length = entries.length;
-        const progress = ThreadProgress.create({
+        const progress = ArcaneProgress.create({
             name: `Copying ${name}`,
         })
 
@@ -92,7 +92,7 @@ export namespace ThreadFile {
             const length = entries.length;
             let count = 0;
 
-            progress = ThreadProgress.create({
+            progress = ArcaneProgress.create({
                 name: `Extracting ${name}`,
             });
 

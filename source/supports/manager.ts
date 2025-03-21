@@ -1,10 +1,10 @@
-import {readFileSync} from "node:fs";
-import {resolve} from "node:path";
+import {existsSync, readFileSync} from "node:fs";
+import path, {resolve} from "node:path";
 import {Command} from "commander";
-import {IPackage} from "../types";
+import {IPackage} from "../types/index.js";
 
 
-export namespace ThreadManager {
+export namespace ArcaneManager {
 
     let instance: Command | undefined;
 
@@ -12,8 +12,9 @@ export namespace ThreadManager {
         return typeof argv === "string" ? [argv] : argv;
     }
 
-    export function packageInfo(appDir: string | undefined): IPackage {
-        return JSON.parse(`${readFileSync(`${resolve(appDir || process.cwd(), './package.json')}`)}`)
+    export function packageInfo(appDir: string | undefined): IPackage | undefined {
+        const source = `${resolve(appDir || process.cwd(), `.${path.sep}package.json`)}`;
+        return existsSync(source) ? JSON.parse(`${readFileSync(source)}`) : undefined
     }
 
     export function create(): Command {

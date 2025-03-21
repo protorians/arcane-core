@@ -1,6 +1,5 @@
-import {IRepositoryPathname} from "../types";
-import {ThreadDownloader} from "./downloader";
-import {IDownloader} from "../types/downloader";
+import {IRepositoryPathname, IDownloader} from "../types/index.js";
+import {ArcaneDownloader} from "./downloader.js";
 
 
 export namespace GithubDownloader {
@@ -37,7 +36,7 @@ export namespace GithubDownloader {
             cacheDir: string,
             outputDir: string,
         ) {
-            this._downloader = (new ThreadDownloader.Create())
+            this._downloader = (new ArcaneDownloader.Create())
                 .name(name)
                 .url(getGithubDownloadUrl(name))
                 .extension('.zip')

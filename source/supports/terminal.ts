@@ -1,8 +1,11 @@
-import {ThreadString} from "./string";
-import logTime = ThreadString.logTime;
-import logDateTime = ThreadString.logDateTime;
+import {ArcaneString} from "./string.js";
+import logTime = ArcaneString.logTime;
+import logDateTime = ArcaneString.logDateTime;
+import {ArcaneEnv} from "./env.js";
 
 export namespace Terminal {
+
+    import isVerbose = ArcaneEnv.isVerbose;
 
     export class Display {
 
@@ -69,57 +72,60 @@ export namespace Terminal {
         }
 
         static log(...data: any[]): typeof this {
+
+            if(isVerbose())
             console.log(this.currentTimeFormat, ...data)
+
             return this;
         }
 
         static black(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_BLACK, ...data, this.RESET)
+            this.log(this.FORE_BLACK, ...data, this.RESET)
             return this;
         }
 
         static red(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_RED, ...data, this.RESET)
+            this.log(this.FORE_RED, ...data, this.RESET)
             return this;
         }
 
         static green(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_GREEN, ...data, this.RESET)
+            this.log(this.FORE_GREEN, ...data, this.RESET)
             return this;
         }
 
         static yellow(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_YELLOW, ...data, this.RESET)
+            this.log(this.FORE_YELLOW, ...data, this.RESET)
             return this;
         }
 
         static blue(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_BLUE, ...data, this.RESET)
+            this.log(this.FORE_BLUE, ...data, this.RESET)
             return this;
         }
 
         static magenta(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_MAGENTA, ...data, this.RESET)
+            this.log(this.FORE_MAGENTA, ...data, this.RESET)
             return this;
         }
 
         static cyan(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_CYAN, ...data, this.RESET)
+            this.log(this.FORE_CYAN, ...data, this.RESET)
             return this;
         }
 
         static white(...data) {
-            console.log(this.currentTimeFormat, this.FORE_WHITE, ...data, this.RESET)
+            this.log(this.FORE_WHITE, ...data, this.RESET)
             return this;
         }
 
         static gray(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_GRAY, ...data, this.RESET)
+            this.log(this.FORE_GRAY, ...data, this.RESET)
             return this;
         }
 
         static crimson(...data: any[]): typeof this {
-            console.log(this.currentTimeFormat, this.FORE_CRIMSON, ...data, this.RESET)
+            this.log(this.FORE_CRIMSON, ...data, this.RESET)
             return this;
         }
 
@@ -140,8 +146,7 @@ export namespace Terminal {
         }
 
         static highlight(label: string, ...data: any[]): typeof this {
-            console.log(
-                this.currentTimeFormat,
+            this.log(
                 `${
                     // this.DIM +
                     // this.BLINK +
@@ -156,8 +161,7 @@ export namespace Terminal {
         }
 
         static notice(label: string, ...data: any[]): typeof this {
-            console.log(
-                this.currentTimeFormat,
+            this.log(
                 `${
                     // this.BLINK +
                     // this.BRIGHT +
@@ -173,8 +177,7 @@ export namespace Terminal {
         }
 
         static error(label: string, ...data: any[]): typeof this {
-            console.log(
-                this.currentTimeFormat,
+            this.log(
                 `${
                     // this.BLINK +
                     // this.BRIGHT +
@@ -190,8 +193,7 @@ export namespace Terminal {
         }
 
         static warning(label: string, ...data: any[]): typeof this {
-            console.log(
-                this.currentTimeFormat,
+            this.log(
                 `${
                     // this.BLINK +
                     // this.BRIGHT +
@@ -207,8 +209,7 @@ export namespace Terminal {
         }
 
         static success(label: string, ...data: any[]): typeof this {
-            console.log(
-                this.currentTimeFormat,
+            this.log(
                 `${
                     // this.BLINK +
                     // this.BRIGHT +
