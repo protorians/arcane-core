@@ -32,8 +32,7 @@ export namespace ArcaneConfig {
         }
 
         update<K extends keyof T>(key: K, value: T[K]): this {
-            if (typeof this._schematic !== 'undefined')
-                this._schematic[key] = value;
+            if (this._schematic) this._schematic[key] = value as any;
             return this;
         }
 
